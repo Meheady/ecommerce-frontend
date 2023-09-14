@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 import Link from "@mui/material/Link";
-import {handleLogout} from "../config/axiosWrapper";
+import {handleLogout} from "../../config/axiosWrapper";
 import {useRouter} from "next/router";
 import {toast} from "react-toastify";
 

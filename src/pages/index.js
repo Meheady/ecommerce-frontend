@@ -1,4 +1,4 @@
-import Layout from "../layout/layout";
+import AdminLayout from "../layout/admin/adminLayout";
 import {useEffect} from "react";
 import {getAllUser} from "../service/userService";
 
@@ -24,8 +24,8 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page) {
   return (
-      <Layout>
+      <AdminLayout>
         {page}
-      </Layout>
+      </AdminLayout>
   )
 }

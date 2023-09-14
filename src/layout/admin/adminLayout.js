@@ -9,7 +9,7 @@ import {useRouter} from "next/router";
 
 
 const drawerWidth = 240;
-export default function Layout(Props) {
+export default function AdminLayout(Props) {
     const { window, children } = Props;
     const router = useRouter();
     const [mobileOpen, setMobileOpen] = React.useState(false);
