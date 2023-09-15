@@ -34,7 +34,7 @@ function CustomerLayout({children}) {
                     toast.success(response && response.data.message);
                     localStorage.clear();
                     sessionStorage.clear();
-                    router.push('/login')
+                    router.push('/')
                 }
             })
             .catch((error)=>{

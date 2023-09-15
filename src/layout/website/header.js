@@ -16,18 +16,24 @@ const Header = ({logout})=>{
     const [authUser,setAuthUser] = useState({});
     const router = useRouter();
 
-    const user =  localStorage.getItem('user');
-    const parseUser = JSON.parse(user);
-
 
     useEffect(() => {
-        if(parseUser.hasOwnProperty('user_type')){
+        const user =  localStorage.getItem('user');
+        const parseUser = JSON.parse(user);
+
+        if(parseUser && parseUser.hasOwnProperty('user_type')){
             setAuth(true);
             setAuthUser(parseUser);
         }
         console.log(parseUser);
     }, []);
 
+    const goLogin = () => {
+      router.push('/login');
+    }
+    const goRegistration = () => {
+      router.push('/registration');
+    }
 
     return (
         <>
@@ -42,7 +48,7 @@ const Header = ({logout})=>{
                             navbarScroll
                         >
                             <Nav.Link className="text-white" as={Link} href="/">HOME</Nav.Link>
-                            <Nav.Link className="text-white" as={Link} href="/shopping">SHOPPING</Nav.Link>
+                            <Nav.Link className="text-white" as={Link} href="/products">SHOPPING</Nav.Link>
                         </Nav>
 
                         {auth ?
@@ -51,8 +57,8 @@ const Header = ({logout})=>{
                                     <Link style={{color:'white',textDecoration:'none'}} href="/customer">Dashboard</Link>
                                 </Button>
                             </div>:<div className="d-flex">
-                                <Button variant="outline-success">LOGIN</Button>
-                                <Button variant="outline-success">SIGN UP</Button>
+                                <Button onClick={goLogin} className="me-2" variant="success">LOGIN</Button>
+                                <Button onClick={goRegistration} variant="secondary">SIGN UP</Button>
                             </div>
                         }
                     </Navbar.Collapse>
