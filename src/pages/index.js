@@ -1,31 +1,19 @@
-import AdminLayout from "../layout/admin/adminLayout";
-import {useEffect} from "react";
-import {getAllUser} from "../service/userService";
+import WebsiteLayout from "../layout/website/websiteLayout";
 
+export default function Index() {
 
-export default function Home() {
-
-    useEffect(() => {
-        getAllUser()
-            .then((data)=>{
-                console.log(data);
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-    }, []);
 
   return (
     <>
-      <h2>Dashboard</h2>
+      <h2>Website</h2>
     </>
   )
 }
 
-Home.getLayout = function getLayout(page) {
+Index.getLayout = function getLayout(page) {
   return (
-      <AdminLayout>
+      <WebsiteLayout>
         {page}
-      </AdminLayout>
+      </WebsiteLayout>
   )
 }

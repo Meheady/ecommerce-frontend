@@ -21,22 +21,22 @@ export default function AdminLayout(Props) {
     };
 
 
-    useEffect(()=>{
-        const token = localStorage.getItem('jwtAuth');
-        if (!token){
-            setAuthenticate(false)
-            router.push('/login')
-        }
-        else{
-            setAuthenticate(true);
-        }
-
-    },[router.events])
-
-
-    if (!isAuthenticate){
-        return null;
-    }
+    // useEffect(()=>{
+    //     const token = localStorage.getItem('jwtAuth');
+    //     if (!token){
+    //         setAuthenticate(false)
+    //         router.push('/login')
+    //     }
+    //     else{
+    //         setAuthenticate(true);
+    //     }
+    //
+    // },[router.events])
+    //
+    //
+    // if (!isAuthenticate){
+    //     return null;
+    // }
 
     return (
         <>

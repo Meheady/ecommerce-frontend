@@ -3,22 +3,17 @@
 const treeItems = [
         {
             id: 1,
-            name: 'System Setup',
+            name: 'Product',
             children: [
                 {
                     id: 2,
-                    name: 'Class',
-                    path: "/class"
+                    name: 'Add Product',
+                    path: "/admin/product/add-product"
                 },
                 {
                     id: 3,
-                    name: 'Year',
-                    path: "/year"
-                },
-                {
-                    id: 4,
-                    name: 'Group',
-                    path: "/group"
+                    name: 'All Product',
+                    path: "/admin/product/list-product"
                 },
 
             ]

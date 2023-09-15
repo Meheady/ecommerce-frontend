@@ -70,7 +70,7 @@ function Appbar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" style={{width:'100%'}}>
-                        School Management System
+                        E-Commerce Dashboard
                     </Typography>
 
                     <Box sx={{ flexGrow: 0}}>
