@@ -13,7 +13,20 @@ const publicInstance =  axios.create({
 });
 
 let authToken = '';
-const usePost = (url,request) => {
+const handlePostRequest = (url,request) => {
+    if (!authToken){
+        const token = localStorage.getItem('jwtAuth');
+        updateToken(token);
+    }
+    return postInstance.post(url,request)
+        .then((response)=>{
+            return handleResponse(response);
+        })
+        .catch((error)=>{
+            return Promise.reject(error.response.data);
+        })
+}
+const handleFileRequest = (url,request) => {
 
     if (!authToken){
         const token = localStorage.getItem('jwtAuth');
@@ -28,13 +41,33 @@ const usePost = (url,request) => {
         })
 }
 
-const useGet =  (url) => {
+const handleGetRequest =  (url) => {
 
     if (!authToken){
         const token = localStorage.getItem('jwtAuth');
         updateToken(token);
     }
-    return postInstance.get(url)
+    return getInstance.get(url)
+        .then((response)=>{
+            return handleResponse(response);
+        })
+        .catch((error)=>{
+            return Promise.reject(error.response.data);
+        })
+}
+
+const handlePublicGetRequest =  (url) => {
+    return publicInstance.get(url)
+        .then((response)=>{
+            return handleResponse(response);
+        })
+        .catch((error)=>{
+            return Promise.reject(error.response.data);
+        })
+}
+
+const handlePublicPostRequest =  (url,body) => {
+    return publicInstance.post(url,body)
         .then((response)=>{
             return handleResponse(response);
         })
@@ -81,8 +114,11 @@ export {
     updateToken,
     handleLogout,
     handleLogin,
-    usePost,
-    useGet
+    handlePublicGetRequest,
+    handlePublicPostRequest,
+    handleGetRequest,
+    handlePostRequest,
+    handleFileRequest
 }
 
 

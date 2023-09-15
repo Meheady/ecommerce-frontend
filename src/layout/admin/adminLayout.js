@@ -20,23 +20,17 @@ export default function AdminLayout(Props) {
         setMobileOpen(!mobileOpen);
     };
 
+    useEffect(()=>{
+        const token = localStorage.getItem('jwtAuth');
+        if (!token){
+            setAuthenticate(false)
+            router.push('/login')
+        }
+        else{
+            setAuthenticate(true);
+        }
 
-    // useEffect(()=>{
-    //     const token = localStorage.getItem('jwtAuth');
-    //     if (!token){
-    //         setAuthenticate(false)
-    //         router.push('/login')
-    //     }
-    //     else{
-    //         setAuthenticate(true);
-    //     }
-    //
-    // },[router.events])
-    //
-    //
-    // if (!isAuthenticate){
-    //     return null;
-    // }
+    },[router.events])
 
     return (
         <>

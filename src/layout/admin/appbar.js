@@ -39,7 +39,7 @@ function Appbar(props) {
         handleLogout()
             .then((response)=>{
                 if (response != null){
-                    toast.success(response.message);
+                    toast.success(response && response.data.message);
                     localStorage.clear();
                     sessionStorage.clear();
                     router.push('/login')

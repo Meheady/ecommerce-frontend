@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -45,14 +43,22 @@ export default function Login() {
             password: data.get('password')
         };
          handleLogin(payload)
-             .then((data)=>{
-                 if (data !=null){
+             .then((res)=>{
+                 if (res.data !=null){
+                     const data = res.data;
+                     console.log(data);
                      if (data.hasOwnProperty('token')){
-                         localStorage.setItem('jwtAuth',data.token);
-                         localStorage.setItem('user',data.token);
+
+                         const user = data.user;
                          const token = data.token;
+                         localStorage.setItem('jwtAuth',token);
+                         localStorage.setItem('user',JSON.stringify(user));
                          updateToken(token);
-                         router.push('/')
+                         if(user.user_type === "customer"){
+                             router.push('/customer');
+                         }else{
+                             router.push('/admin')
+                         }
                          toast.success('Login successfully')
                      }
                  }
