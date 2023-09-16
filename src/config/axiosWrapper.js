@@ -32,7 +32,11 @@ const handleFileRequest = (url,request) => {
         const token = localStorage.getItem('jwtAuth');
         updateToken(token);
     }
-    return postInstance.post(url,request)
+    return postInstance.post(url,request,{
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+    })
         .then((response)=>{
             return handleResponse(response);
         })

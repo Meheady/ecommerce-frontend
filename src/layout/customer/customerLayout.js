@@ -7,6 +7,8 @@ import {Col, Row} from "react-bootstrap";
 import CustomerSidebar from "./customerSidebar";
 import {handleLogout} from "../../config/axiosWrapper";
 import {toast} from "react-toastify";
+import {customerCart} from "../../service/customer/cartService";
+import {useState} from "react";
 
 function CustomerLayout({children}) {
 
@@ -26,12 +28,11 @@ function CustomerLayout({children}) {
 
     },[router.events])
 
-
     const logout = () => {
         handleLogout()
             .then((response)=>{
                 if (response != null){
-                    toast.success(response && response.data.message);
+                    toast.success(response && response.data && response.data.message);
                     localStorage.clear();
                     sessionStorage.clear();
                     router.push('/')
@@ -51,13 +52,13 @@ function CustomerLayout({children}) {
 
     return (
         <>
-            <Header logout={logout}/>
+            <Header />
             <Container>
                 <Row>
                     <Col md={4}>
                         <CustomerSidebar logout={logout}/>
                     </Col>
-                    <Col md={8} className="pt-3">
+                    <Col md={8} className="py-3">
                         {children}
                     </Col>
                 </Row>

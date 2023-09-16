@@ -14,6 +14,7 @@ import {handleLogin, updateToken} from "../config/axiosWrapper";
 import {useRouter} from "next/router";
 import { toast } from 'react-toastify';
 import Link from "next/Link";
+import {useUserStore} from "../store/userStore";
 
 function Copyright(props) {
     return (
@@ -35,6 +36,9 @@ const defaultTheme = createTheme();
 export default function Login() {
 
     const router = useRouter();
+    const addUser = useUserStore((state) => state.addUser);
+    const addAuth = useUserStore((state) => state.addAuth);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -51,8 +55,10 @@ export default function Login() {
 
                          const user = data.user;
                          const token = data.token;
+                         addUser(user);
+                         addAuth(true);
+
                          localStorage.setItem('jwtAuth',token);
-                         localStorage.setItem('user',JSON.stringify(user));
                          updateToken(token);
                          if(user.user_type === "customer"){
                              router.push('/customer');

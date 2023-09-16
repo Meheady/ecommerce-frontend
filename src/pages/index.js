@@ -1,11 +1,12 @@
 import WebsiteLayout from "../layout/website/websiteLayout";
+import Product from "../component/website/product/product";
 
 export default function Index() {
 
 
   return (
     <>
-      <h2>Website</h2>
+      <Product/>
     </>
   )
 }

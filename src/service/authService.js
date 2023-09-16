@@ -1,9 +1,9 @@
-import {useGet, usePost} from "../config/axiosWrapper";
+import {handlePostRequest} from "../config/axiosWrapper";
 
-const getAllUser = () => {
-    return useGet('/user')
+const customerRegister = (body) => {
+  return handlePostRequest('/register',body);
 }
 
 export {
-    getAllUser
+    customerRegister
 }

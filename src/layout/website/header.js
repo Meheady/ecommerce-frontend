@@ -6,27 +6,43 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Link from "next/Link";
 import {useEffect, useState} from "react";
-import {handleLogout} from "../../config/axiosWrapper";
-import {toast} from "react-toastify";
+import Badge from 'react-bootstrap/Badge';
 import {useRouter} from "next/router";
+import {customerCart} from "../../service/customer/cartService";
+import {useUserStore} from "../../store/userStore";
+import {toast} from "react-toastify";
 
-const Header = ({logout})=>{
+const Header = ()=>{
 
     const [auth,setAuth] = useState(false);
     const [authUser,setAuthUser] = useState({});
+    const user = useUserStore((state)=>state.user);
+    const [cartTotal, setCartTotal] = useState([]);
     const router = useRouter();
 
-
     useEffect(() => {
-        const user =  localStorage.getItem('user');
-        const parseUser = JSON.parse(user);
-
-        if(parseUser && parseUser.hasOwnProperty('user_type')){
+        if(user && user.hasOwnProperty('user_type')){
             setAuth(true);
-            setAuthUser(parseUser);
+            setAuthUser(user);
         }
-        console.log(parseUser);
     }, []);
+
+
+    useEffect(()=>{
+        fetchCartTotal()
+            .then((res)=>{
+                if (res != null ){
+                    let total  = 0;
+                    res.map((item, index)=>{
+                        total +=item.quantity;
+                    });
+                    setCartTotal(total);
+                }
+            })
+            .catch((err)=>{
+                toast.error(err.message);
+            })
+    },[auth])
 
     const goLogin = () => {
       router.push('/login');
@@ -34,6 +50,12 @@ const Header = ({logout})=>{
     const goRegistration = () => {
       router.push('/registration');
     }
+    const goCartList = () => {
+      router.push('/customer/cart-list');
+    }
+
+
+    console.log("heder");
 
     return (
         <>
@@ -53,7 +75,10 @@ const Header = ({logout})=>{
 
                         {auth ?
                             <div className="d-flex">
-                                <Button variant="success">
+                                <Button onClick={goCartList} className="me-2" variant="light">
+                                    My Cart <Badge bg="secondary">{cartTotal && cartTotal}</Badge>
+                                </Button>
+                                <Button  variant="success">
                                     <Link style={{color:'white',textDecoration:'none'}} href="/customer">Dashboard</Link>
                                 </Button>
                             </div>:<div className="d-flex">
@@ -68,3 +93,13 @@ const Header = ({logout})=>{
     )
 }
 export default Header;
+
+export const fetchCartTotal = async () => {
+   return  await customerCart()
+        .then((res)=>{
+            return res.data;
+        })
+        .catch((err)=>{
+            return err;
+        })
+}
