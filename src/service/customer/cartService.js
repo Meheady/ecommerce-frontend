@@ -23,7 +23,7 @@ const storeOrder = (body) => {
    return  handlePostRequest(`/customer/order/store`,body);
 }
 const myOrder = () => {
-   return  handlePostRequest(`/customer/order/index`);
+   return  handleGetRequest(`/customer/order/index`);
 }
 
 

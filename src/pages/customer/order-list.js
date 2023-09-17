@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {myOrder} from "../../service/customer/cartService";
 import {toast} from "react-toastify";
 import {Table} from "@mui/material";
-import {asset} from "../../helpers/helperMethods";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import ApiLoader from "../../layout/apiLoader";
+import CustomerLayout from "../../layout/customer/customerLayout";
 
 function OrderList(props) {
     const [orderList, setOrderList] = useState([]);
@@ -40,6 +39,7 @@ function OrderList(props) {
                 <tr>
                     <th>SL</th>
                     <th>Product Name</th>
+                    <th>Inv. No</th>
                     <th>Price</th>
                     <th>Status</th>
                 </tr>
@@ -50,6 +50,7 @@ function OrderList(props) {
                         <tr key={index}>
                             <td>{index}</td>
                             <td>{item.product_name}</td>
+                            <td>{item.invoice_no}</td>
                             <td>{`${item.unit_price} x ${item.quantity} = ${item.total_price}`}</td>
 
                             <td>
@@ -66,3 +67,10 @@ function OrderList(props) {
 }
 
 export default OrderList;
+OrderList.getLayout = function getLayout(page) {
+    return (
+        <CustomerLayout>
+            {page}
+        </CustomerLayout>
+    )
+}

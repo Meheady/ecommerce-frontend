@@ -6,6 +6,10 @@ import Button from "@mui/material/Button";
 import WebsiteLayout from "../layout/website/websiteLayout";
 import Card from "react-bootstrap/Card";
 import {useEffect, useRef, useState} from "react";
+import {customerRegister} from "../service/authService";
+import {useRouter} from "next/router";
+import {toast} from "react-toastify";
+import ApiLoader from "../layout/apiLoader";
 function Registration(props) {
 
     const [formData, setFormData] = useState({});
@@ -35,7 +39,7 @@ function Registration(props) {
 
         const confirm  = window.confirm("Are you sure ?")
         if (!confirm) return false;
-        setLoader(true);
+
         const payload = {
             name: formData.name,
             email: formData.email,
@@ -71,7 +75,7 @@ function Registration(props) {
                                         <Form.Control type="email" required name="email" onChange={handleFormData}  placeholder="Enter your email" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                        <Form.Label>Phone</Form.Label>
+                                        <Form.Label>Password</Form.Label>
                                         <Form.Control type="password" required name="password" onChange={handleFormData}  placeholder="Enter your password" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
